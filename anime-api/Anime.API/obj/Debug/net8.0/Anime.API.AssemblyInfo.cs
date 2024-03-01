@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Anime.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3eaaaaca97dd248c702a1889631b0110280df2b1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Anime.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Anime.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
