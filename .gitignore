@@ -2,3 +2,17 @@
 anime-api/Anime.Infrastructure/bin/
 
 anime-api/Anime.Infrastructure/obj/
+
+anime-api/Anime.Domain/bin/
+
+anime-api/Anime.Domain/obj/
+
+anime-api/Anime.Common/bin/
+
+anime-api/Anime.Common/obj/
+
+anime-api/Anime.API/obj/
+
+anime-api/Anime.API/bin/
+
+anime-api/.vs/
