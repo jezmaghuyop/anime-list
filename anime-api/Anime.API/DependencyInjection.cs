@@ -1,5 +1,6 @@
 ﻿using Anime.API.Infrastructure;
 using Anime.API.Services;
+using Anime.API.Subscriptions;
 using Anime.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -24,7 +25,8 @@ public static class DependencyInjection
             options.SuppressModelStateInvalidFilter = true);
 
         services.AddEndpointsApiExplorer();
-
+        
+        services.AddSingleton<AnimeVotesSubscription>();
         services.AddScoped<IAnimeService, AnimeService>();
 
         services.AddCors(options =>
@@ -39,5 +41,14 @@ public static class DependencyInjection
 
 
         return services;
+    }
+
+
+    public static void UseSqlTableDependency<T>(this IApplicationBuilder services, string connectionString)
+  where T : IDatabaseSubscription
+    {
+        var serviceProvider = services.ApplicationServices;
+        var subscription = serviceProvider.GetService<T>();
+        subscription?.SubscribeTableDependency(connectionString);
     }
 }

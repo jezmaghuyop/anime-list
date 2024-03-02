@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Reflection.Emit;
 using Anime.Common.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,10 @@ namespace Anime.Infrastructure.Data
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Common.Entities.AnimeVotes>()
+                .ToTable(t => t.HasTrigger("NameOfTrigger"));
+
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }

@@ -2,6 +2,7 @@
 using Anime.Infrastructure.Data;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Anime.API.Services
@@ -51,7 +52,10 @@ namespace Anime.API.Services
 
             _context.AnimeVotes.Add(animeVotes);
 
-            var result = await _context.SaveChangesAsync();
+           var result = await _context.SaveChangesAsync();
+
+            //var sql = @"INSERT INTO AnimeVotes (AnimeId) VALUES (@AnimeId);";
+            //var result = await _context.Database.ExecuteSqlRawAsync(sql, new SqlParameter("@AnimeId", animeId));
 
             return result;
         }

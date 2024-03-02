@@ -1,3 +1,4 @@
+using Anime.API.Subscriptions;
 using Anime.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,5 +27,11 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Subscribe to table dependency 
+app.UseSqlTableDependency<AnimeVotesSubscription>(connectionString);
+
 
 app.Run();
