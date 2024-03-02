@@ -1,4 +1,10 @@
-import { Component, computed, input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { Anime } from '@core/models';
 
 @Component({

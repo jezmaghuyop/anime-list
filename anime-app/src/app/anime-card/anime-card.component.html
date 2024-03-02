@@ -13,16 +13,13 @@
         href="#"
         class="group-hover:text-cyan-700 font-bold sm:text-2xl line-clamp-2"
       >
-        Spider-Man: Across the Spider-Verse
+        {{ context().title }}
       </a>
       <span class="text-slate-400 pt-2 font-semibold">(2023)</span>
 
       <div class="h-28">
         <span class="line-clamp-4 py-2 text-sm font-light leading-relaxed">
-          Miles Morales catapults across the Multiverse, where he encounters a
-          team of Spider-People charged with protecting its very existence. When
-          the heroes clash on how to handle a new threat, Miles must redefine
-          what it means to be a hero.
+          {{ context().description }}
         </span>
       </div>
 
@@ -31,8 +28,8 @@
           <span class="text-yellow-500 text-xl">VOTES</span>
           <span
             class="text-3xl flex gap-x-1 items-center group-hover:text-yellow-600"
-            >
-            {{vote().length}}
+          >
+            {{ vote().length }}
           </span>
         </div>
 
