@@ -27,6 +27,17 @@ public static class DependencyInjection
 
         services.AddScoped<IAnimeService, AnimeService>();
 
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
+
+
         return services;
     }
 }

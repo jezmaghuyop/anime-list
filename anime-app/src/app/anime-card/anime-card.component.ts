@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input, Output, EventEmitter } from '@angular/core';
 import { Anime } from '@core/models';
 
 @Component({
@@ -9,5 +9,12 @@ import { Anime } from '@core/models';
   styleUrl: './anime-card.component.scss',
 })
 export class AnimeCardComponent {
-   context = input.required<Anime>();
+  context = input.required<Anime>();
+  vote = computed(() => this.context().votes);
+
+  @Output() voteEvent = new EventEmitter<number>();
+
+  voteForAnime() {
+    this.voteEvent.emit(this.context().id);
+  }
 }

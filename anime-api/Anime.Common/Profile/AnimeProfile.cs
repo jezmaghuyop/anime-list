@@ -13,5 +13,7 @@ public class AnimeProfile : AutoMapper.Profile
            .ForMember(dest => dest.Votes, opt => opt.MapFrom(src => src.Votes));
 
         CreateMap<AnimeVotes, AnimeVotesDTO>();
+
+        CreateMap<CreateAnimeDTO, AnimeDTO>();
     }
 }

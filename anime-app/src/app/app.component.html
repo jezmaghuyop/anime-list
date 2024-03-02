@@ -3,9 +3,9 @@
     My Anime List
   </h1>
 
-  <div class="flex flex-row space-x-8">
+  <div class="flex flex-row space-x-8 justify-center">
     @for (anime of context.animes; track anime.id) {
-      <app-anime-card [context]="anime"></app-anime-card>
+      <app-anime-card [context]="anime" (voteEvent)="onVote($event)"></app-anime-card>
     }
   </div>
 </div>

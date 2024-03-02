@@ -2,6 +2,11 @@ export type Anime = {
   id: number;
   title: string;
   description: string;
-  image: string;
-  votes: number;
+  imageUrl: string;
+  votes: AnimeVote[];
+};
+
+export type AnimeVote = {
+  id: number;
+  animeId: number;
 };

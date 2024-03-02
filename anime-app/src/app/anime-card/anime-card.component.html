@@ -1,7 +1,7 @@
 <div class="rounded-3xl shadow-xl">
   <div class="grid rounded-3xl max-w-[370px] shadow-sm bg-slate-100 flex-col">
     <img
-      src="https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDMxLTlkZmEtMzU4MDQxYTMzMjU2XkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_QL75_UX380_CR0,1,380,562_.jpg"
+      [src]="context().imageUrl"
       width="375"
       height="200"
       class="rounded-t-3xl justify-center grid h-80 object-cover"
@@ -31,7 +31,14 @@
           <span class="text-yellow-500 text-xl">VOTES</span>
           <span
             class="text-3xl flex gap-x-1 items-center group-hover:text-yellow-600"
-            >8.8
+            >
+            {{vote().length}}
+          </span>
+        </div>
+
+        <div class="flex flex-col items-end" (click)="voteForAnime()">
+          <div class="h-7"></div>
+          <span class="text-3xl font-bold gap-x-2 text-slate-300">
             <svg
               width="24px"
               height="24px"
@@ -47,11 +54,6 @@
               />
             </svg>
           </span>
-        </div>
-
-        <div class="flex flex-col items-end">
-          <div class="h-7"></div>
-          <span class="text-3xl font-bold gap-x-2 text-slate-300"># 8</span>
         </div>
       </div>
     </div>

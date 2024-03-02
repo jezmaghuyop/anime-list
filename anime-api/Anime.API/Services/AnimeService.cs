@@ -10,7 +10,7 @@ namespace Anime.API.Services
     {
         Task<int> AddAnime(CreateAnimeDTO createAnime);
         Task<IEnumerable<Common.Models.AnimeDTO>> GetAnimes();
-        Task AddAnimeVote(int animeId);
+        Task<int> AddAnimeVote(int animeId);
     }
 
     public class AnimeService : IAnimeService
@@ -42,7 +42,7 @@ namespace Anime.API.Services
             return animes;
         }
 
-        public async Task AddAnimeVote(int animeId)
+        public async Task<int> AddAnimeVote(int animeId)
         {
             var animeVotes = new Common.Entities.AnimeVotes
             {
@@ -51,7 +51,9 @@ namespace Anime.API.Services
 
             _context.AnimeVotes.Add(animeVotes);
 
-            await _context.SaveChangesAsync();
+            var result = await _context.SaveChangesAsync();
+
+            return result;
         }
     }
 }
