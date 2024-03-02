@@ -1,4 +1,6 @@
-﻿using TableDependency.SqlClient;
+﻿using Anime.API.Hubs;
+using Microsoft.AspNetCore.SignalR;
+using TableDependency.SqlClient;
 using TableDependency.SqlClient.Base.Enums;
 
 namespace Anime.API.Subscriptions;
@@ -10,16 +12,18 @@ public interface IDatabaseSubscription
 
 public class AnimeVotesSubscription : IDatabaseSubscription
 {
+    private readonly IHubContext<AnimeHub> _animeHubContext;
+
     SqlTableDependency<Common.Entities.AnimeVotes> _animeVotesTableDependency;
 
-    public AnimeVotesSubscription()
+    public AnimeVotesSubscription(IHubContext<AnimeHub> animeHubContext)
     {
-
+        _animeHubContext = animeHubContext;
     }
 
     public void SubscribeTableDependency(string connectionString)
     {
-        _animeVotesTableDependency = new SqlTableDependency<Common.Entities.AnimeVotes>(connectionString, null, null, null, null, null, DmlTriggerType.All, false);        
+        _animeVotesTableDependency = new SqlTableDependency<Common.Entities.AnimeVotes>(connectionString, null, null, null, null, null, DmlTriggerType.All, false);
         _animeVotesTableDependency.OnChanged += AnimeVotesTableDependency_OnChanged;
         _animeVotesTableDependency.OnError += AnimeVotesTableDependency_OnError;
         _animeVotesTableDependency.Start();
@@ -31,8 +35,8 @@ public class AnimeVotesSubscription : IDatabaseSubscription
         {
             var animeVote = e.Entity;
 
-            // Broadcast to All 
-
+            // Send the new vote to all connected clients
+            _animeHubContext.Clients.All.SendAsync("AddNewVote", animeVote);
         }
     }
 

@@ -52,12 +52,9 @@ namespace Anime.API.Services
 
             _context.AnimeVotes.Add(animeVotes);
 
-           var result = await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
-            //var sql = @"INSERT INTO AnimeVotes (AnimeId) VALUES (@AnimeId);";
-            //var result = await _context.Database.ExecuteSqlRawAsync(sql, new SqlParameter("@AnimeId", animeId));
-
-            return result;
+            return animeVotes.Id;
         }
     }
 }

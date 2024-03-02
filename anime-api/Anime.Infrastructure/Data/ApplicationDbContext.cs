@@ -15,13 +15,12 @@ namespace Anime.Infrastructure.Data
         public DbSet<Common.Entities.Anime> Animes => Set<Common.Entities.Anime>();
 
         public DbSet<Common.Entities.AnimeVotes> AnimeVotes => Set<Common.Entities.AnimeVotes>();
-
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
                 .Entity<Common.Entities.AnimeVotes>()
-                .ToTable(t => t.HasTrigger("NameOfTrigger"));
+                .ToTable(t => t.HasTrigger("brokerSender"));
 
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Anime } from '@core/models';
-import { AnimeService } from '@core/http';
+import { Anime, AnimeVote } from '@core/models';
+import { AnimeService, RealtimeAnimeService } from '@core/http';
 import { untilDestroyed } from '@utilities/until-destroyed';
 import { HttpClientModule } from '@angular/common/http';
 import { AnimeGraphComponent } from './anime-graph/anime-graph.component';
@@ -30,10 +30,16 @@ export class AppComponent implements OnInit {
   };
 
   private readonly _animeService: AnimeService = inject(AnimeService);
+  private readonly _realTimeAnimeService: RealtimeAnimeService =
+    inject(RealtimeAnimeService);
+
   private readonly takeUntilDestroyed = untilDestroyed();
   private hasVoted = false;
+  private recentlyAdded!: AnimeVote;
 
   ngOnInit(): void {
+    this._realTimeAnimeService.startConnection();
+
     this._animeService
       .getAll()
       .pipe(this.takeUntilDestroyed())
@@ -42,14 +48,25 @@ export class AppComponent implements OnInit {
       });
 
     this.hasVoted = localStorage.getItem('hasVoted') === 'true';
+
+    this._realTimeAnimeService.hubConnection.on(
+      'AddNewVote',
+      (result: AnimeVote) => {
+        const anime = this.context.animes.find((a) => a.id === result.animeId);
+
+        if (anime && this.recentlyAdded?.id !== result.id) {
+          this.renderAnime(anime, result);
+        }
+      }
+    );
   }
 
   onVote(id: number) {
-    // if (this.hasVoted) {
-    //   alert('You have already voted!');
+    if (this.hasVoted) {
+      alert('You have already voted!');
 
-    //   return;
-    // }
+      return;
+    }
 
     const anime = this.context.animes.find((a) => a.id === id);
 
@@ -61,20 +78,27 @@ export class AppComponent implements OnInit {
           this.hasVoted = true;
           localStorage.setItem('hasVoted', 'true');
 
-          // remove anime
-          this.context.animes = this.context.animes.filter((a) => a.id !== id);
+          // Store the recently added vote, use this as a reference to prevent duplicate votes
+          this.recentlyAdded = result;
 
-          // re-add anime
-          anime.votes.push({ id: result.id, animeId: anime.id });
-
-          const animes = [...this.context.animes];
-
-          animes.push(anime);
-
-          animes.sort((a, b) => a.id - b.id);
-
-          this.context.animes = animes;
+          this.renderAnime(anime, result);
         });
     }
+  }
+
+  renderAnime(anime: Anime, data: AnimeVote) {
+    // remove anime
+    this.context.animes = this.context.animes.filter((a) => a.id !== anime.id);
+
+    // re-add anime
+    anime.votes.push({ id: data.id, animeId: data.id });
+
+    const animes = [...this.context.animes];
+
+    animes.push(anime);
+
+    animes.sort((a, b) => a.id - b.id);
+
+    this.context.animes = animes;
   }
 }

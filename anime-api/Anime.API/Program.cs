@@ -1,3 +1,4 @@
+using Anime.API.Hubs;
 using Anime.API.Subscriptions;
 using Anime.Infrastructure.Data;
 
@@ -23,11 +24,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseCors("AllowAll");
 app.UseAuthorization();
-
-app.MapControllers();
-
+// app.MapControllers();
+app.UseEndpoints(endpoints =>
+{    
+    endpoints.MapHub<AnimeHub>("/hub/anime");
+    endpoints.MapControllers();
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 // Subscribe to table dependency 
