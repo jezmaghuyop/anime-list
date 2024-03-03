@@ -6,12 +6,10 @@ describe('AnimeGraphComponent', () => {
   let component: AnimeGraphComponent;
   let fixture: ComponentFixture<AnimeGraphComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       imports: [AnimeGraphComponent]
-    })
-    .compileComponents();
-    
+    });
     fixture = TestBed.createComponent(AnimeGraphComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

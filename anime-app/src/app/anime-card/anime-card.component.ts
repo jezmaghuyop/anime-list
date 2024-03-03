@@ -12,7 +12,7 @@ import { Anime } from '@core/models';
   standalone: true,
   imports: [],
   templateUrl: './anime-card.component.html',
-  styleUrl: './anime-card.component.scss',
+  styleUrls: ['./anime-card.component.scss'],
 })
 export class AnimeCardComponent {
   context = input.required<Anime>();

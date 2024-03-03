@@ -21,7 +21,7 @@ type Context = {
     AnimeGraphComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
   providers: [AnimeService],
 })
 export class AppComponent implements OnInit {

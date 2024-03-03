@@ -9,7 +9,7 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [HighchartsChartModule, JsonPipe],
   templateUrl: './anime-graph.component.html',
-  styleUrl: './anime-graph.component.scss',
+  styleUrls: ['./anime-graph.component.scss'],
 })
 export class AnimeGraphComponent implements OnInit {
   animes = input<Anime[]>([]);
